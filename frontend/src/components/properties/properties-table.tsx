@@ -15,23 +15,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { useDeletePortfolioMutation } from "@/services/portfolio";
-import { useNavigate } from "react-router-dom";
+import { useDeletePropertyMutation } from "@/services/properties";
 
-const PortfolioTable = ({ data, setOpen, setPortfolio }) => {
-  const navigate = useNavigate();
-  const [deletePortfolio] = useDeletePortfolioMutation();
+const PropertiesTable = ({ data, setOpen, setProperty }) => {
+  const [deleteProperty] = useDeletePropertyMutation();
   const deleteItem = (item) => {
-    deletePortfolio(item.id);
+    deleteProperty(item.id);
   };
   return (
     <>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Owner</TableHead>
-            <TableHead>Region</TableHead>
+            <TableHead>Address</TableHead>
+            <TableHead>Estimated Value</TableHead>
+            <TableHead>Construction Year</TableHead>
+            <TableHead>Square Footage</TableHead>
             <TableHead>
               <span className="sr-only">Actions</span>
             </TableHead>
@@ -39,13 +38,16 @@ const PortfolioTable = ({ data, setOpen, setPortfolio }) => {
         </TableHeader>
         <TableBody>
           {data?.map((item) => (
-            <TableRow
-              key={item.id}
-              onClick={() => navigate(`properties/${item.id}`)}
-            >
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.owner}</TableCell>
-              <TableCell>{item.geographic_region}</TableCell>
+            <TableRow key={item.id}>
+              <TableCell>{item.address}</TableCell>
+              <TableCell>
+                {new Intl.NumberFormat("nb-NO", {
+                  style: "currency",
+                  currency: "NOK",
+                }).format(item.estimated_value)}
+              </TableCell>
+              <TableCell>{item.construction_year}</TableCell>
+              <TableCell>{item.square_footage}</TableCell>
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -59,7 +61,7 @@ const PortfolioTable = ({ data, setOpen, setPortfolio }) => {
                     <DropdownMenuItem
                       onClick={() => {
                         setOpen(true);
-                        setPortfolio(item);
+                        setProperty(item);
                       }}
                     >
                       Edit
@@ -78,4 +80,4 @@ const PortfolioTable = ({ data, setOpen, setPortfolio }) => {
   );
 };
 
-export { PortfolioTable };
+export { PropertiesTable };

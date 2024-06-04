@@ -9,9 +9,8 @@ export type TPortfolio = {
 export type TProperty = {
   id: number;
   address: string;
-  estimated_value: string;
+  estimated_value: number;
   construction_year: number;
   square_footage: number;
-  representational_image: string;
-  portfolio_id: number;
+  portfolio: number;
 };
