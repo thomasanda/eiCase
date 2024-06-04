@@ -1,9 +1,8 @@
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Portfolio } from "./components/portfolio/portfolio";
 import { Properties } from "./components/properties/properties";
 
 function App() {
-  const { id } = useParams();
   return (
     <BrowserRouter>
       <Routes>
