@@ -42,3 +42,15 @@ class PortfolioTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         portfolio.refresh_from_db()
         self.assertEqual(portfolio.name, "Anders Nilsens Plass")
+
+    def test_delete_portfolio(self):
+        portfolio = Portfolio.objects.create(
+            name="Rudolf Nilsens Plass", owner="Thomas Anda", geographic_region="Oslo"
+        )
+        Portfolio.objects.create(
+            name="Rudolf Nilsens Plass", owner="Thomas Anda", geographic_region="Oslo"
+        )
+        url = reverse("portfolio-detail", args=[portfolio.id])
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Portfolio.objects.count(), 1)
