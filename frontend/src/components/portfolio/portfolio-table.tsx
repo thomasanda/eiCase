@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useDeletePortfolioMutation } from "@/services/portfolio";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +44,10 @@ const PortfolioTable = ({ data, setOpen, setPortfolio }) => {
               key={item.id}
               onClick={() => navigate(`properties/${item.id}`)}
             >
-              <TableCell>{item.name}</TableCell>
+              <TableCell>
+                {item.name}
+                <Badge variant="secondary">{item.properties.length}</Badge>
+              </TableCell>
               <TableCell>{item.owner}</TableCell>
               <TableCell>{item.geographic_region}</TableCell>
               <TableCell>
